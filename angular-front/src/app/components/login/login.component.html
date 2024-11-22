@@ -1,0 +1,57 @@
+<div class="full-height">
+  <div class="centered">
+    <mat-card class="card-container">
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" novalidate>
+        <div class="form-group">
+          <mat-form-field appearance="fill" class="full-width">
+            <mat-label>Username</mat-label>
+            <input
+              matInput
+              type="text"
+              formControlName="username"
+              [ngClass]="{ 'is-invalid': f['username'].touched && f['username'].errors }"
+            />
+            <mat-error *ngIf="f['username'].touched && f['username'].errors">
+              <div *ngIf="f['username'].errors['required']">Username is required!</div>
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="form-group">
+          <mat-form-field appearance="fill" class="full-width">
+            <mat-label>Password</mat-label>
+            <input
+              matInput
+              type="password"
+              formControlName="password"
+              [ngClass]="{ 'is-invalid': f['password'].touched && f['password'].errors }"
+            />
+            <mat-error *ngIf="f['password'].touched && f['password'].errors">
+              <div *ngIf="f['password'].errors['required']">Password is required</div>
+              <div *ngIf="f['password'].errors['minlength']">Password must be at least 6 characters</div>
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="form-group">
+          <mat-card *ngIf="isLoginFailed" class="alert-container" color="warn">
+            Login failed: {{ errorMessage }}
+          </mat-card>
+        </div>
+        <br>
+        <div class="form-group">
+          <button
+            mat-raised-button
+            color="primary"
+            class="full-width"
+            [disabled]="loginForm.invalid"
+          >
+            Login
+          </button>
+        </div>
+        
+        <div *ngIf="isLoggedIn" class="alert-container" color="accent">
+          Logged in!
+        </div>
+      </form>
+    </mat-card>
+  </div>
+</div>

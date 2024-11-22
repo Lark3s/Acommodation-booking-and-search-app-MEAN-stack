@@ -1,0 +1,67 @@
+<div>
+  <h2>Accommodations</h2>
+
+  <button id="add-button" mat-raised-button color="primary" [routerLink]="['/add-accommodation']">Add Accommodation</button>
+  <div>
+    <mat-form-field>
+      <input matInput [(ngModel)]="filters.title" placeholder="Search by title">
+    </mat-form-field>
+    <button mat-raised-button color="accent" (click)="searchByTitle()">Search</button>
+  </div>
+
+  <div>
+    <mat-form-field>
+      <input matInput [(ngModel)]="filters.location" placeholder="Filter by location">
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput type="number" [(ngModel)]="filters.minPrice" placeholder="Min Price">
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput type="number" [(ngModel)]="filters.maxPrice" placeholder="Max Price">
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput type="date" [(ngModel)]="filters.startDate" placeholder="Start Date">
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput type="date" [(ngModel)]="filters.endDate" placeholder="End Date">
+    </mat-form-field>
+    <button mat-raised-button color="primary" (click)="applyFilters()">Apply Filters</button>
+    <button mat-stroked-button (click)="clearFilters()">Clear Filters</button>
+  </div>
+
+  <div>
+    <mat-card *ngFor="let accommodation of accommodations | paginate: { itemsPerPage: pageSize, currentPage: currentPage, totalItems: totalItems }" class="accommodation-card">
+      <mat-card-header>
+        <mat-card-title>
+          <a [routerLink]="['/accommodations/', accommodation.id]">{{ accommodation.name }}</a>
+        </mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <p>{{ accommodation.description }}</p>
+        <p>{{ accommodation.location }} - ${{ accommodation.pricePerNight }} per night</p>
+        <div *ngIf="accommodation.availability">
+          <h6>Availability:</h6>
+          <ul>
+            <li *ngFor="let availability of accommodation.availability">
+              From: {{ availability.startDate | date:'mediumDate' }} 
+              To: {{ availability.endDate | date:'mediumDate' }}
+            </li>
+          </ul>
+        </div>
+        <p>Rating: {{ accommodation.averageRating }}⭐ ({{ accommodation.reviewCount }} reviews)</p>
+      </mat-card-content>
+    </mat-card>
+  </div>
+  
+  <!-- Pagination Controls -->
+  <mat-paginator [length]="totalItems"
+                 [pageSize]="pageSize"
+                 [pageSizeOptions]="[5, 10, 25, 100]"
+                 showFirstLastButtons
+                 (page)="goToPage($event)">
+  </mat-paginator>
+</div>
+
+<div *ngIf="!accommodations">
+  <p>Loading...</p>
+</div>

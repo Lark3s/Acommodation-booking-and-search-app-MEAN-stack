@@ -1,0 +1,9 @@
+.rating-options {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  mat-radio-button {
+    margin-right: 8px;
+  }
+  

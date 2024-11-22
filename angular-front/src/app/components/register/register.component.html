@@ -1,0 +1,120 @@
+<div class="full-height">
+  <div class="centered">
+    <mat-card class="card-container">
+      <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" novalidate>
+        <div class="form-group">
+          <mat-form-field appearance="fill" class="full-width">
+            <mat-label>First Name</mat-label>
+            <input
+              matInput
+              type="text"
+              formControlName="firstName"
+              [ngClass]="{ 'is-invalid': f['firstName'].touched && f['firstName'].errors }"
+            />
+            <mat-error *ngIf="f['firstName'].touched && f['firstName'].errors">
+              <div *ngIf="f['firstName'].errors['required']">First Name is required</div>
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="form-group">
+          <mat-form-field appearance="fill" class="full-width">
+            <mat-label>Last Name</mat-label>
+            <input
+              matInput
+              type="text"
+              formControlName="lastName"
+              [ngClass]="{ 'is-invalid': f['lastName'].touched && f['lastName'].errors }"
+            />
+            <mat-error *ngIf="f['lastName'].touched && f['lastName'].errors">
+              <div *ngIf="f['lastName'].errors['required']">Last Name is required</div>
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="form-group">
+          <mat-form-field appearance="fill" class="full-width">
+            <mat-label>Username</mat-label>
+            <input
+              matInput
+              type="text"
+              formControlName="username"
+              [ngClass]="{ 'is-invalid': f['username'].touched && f['username'].errors }"
+            />
+            <mat-error *ngIf="f['username'].touched && f['username'].errors">
+              <div *ngIf="f['username'].errors['required']">Username is required</div>
+              <div *ngIf="f['username'].errors['minlength']">
+                Username must be at least 3 characters
+              </div>
+              <div *ngIf="f['username'].errors['maxlength']">
+                Username must be at most 20 characters
+              </div>
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="form-group">
+          <mat-form-field appearance="fill" class="full-width">
+            <mat-label>Email</mat-label>
+            <input
+              matInput
+              type="email"
+              formControlName="email"
+              [ngClass]="{ 'is-invalid': f['email'].touched && f['email'].errors }"
+            />
+            <mat-error *ngIf="f['email'].touched && f['email'].errors">
+              <div *ngIf="f['email'].errors['required']">Email is required</div>
+              <div *ngIf="f['email'].errors['email']">Email must be a valid email address</div>
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="form-group">
+          <mat-form-field appearance="fill" class="full-width">
+            <mat-label>Password</mat-label>
+            <input
+              matInput
+              type="password"
+              formControlName="password"
+              [ngClass]="{ 'is-invalid': f['password'].touched && f['password'].errors }"
+            />
+            <mat-error *ngIf="f['password'].touched && f['password'].errors">
+              <div *ngIf="f['password'].errors['required']">Password is required</div>
+              <div *ngIf="f['password'].errors['minlength']">
+                Password must be at least 6 characters
+              </div>
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="form-group">
+          <mat-form-field appearance="fill" class="full-width">
+            <mat-label>Confirm Password</mat-label>
+            <input
+              matInput
+              type="password"
+              formControlName="confirmPassword"
+              [ngClass]="{ 'is-invalid': f['confirmPassword'].touched && f['confirmPassword'].errors }"
+            />
+            <mat-error *ngIf="f['confirmPassword'].touched && f['confirmPassword'].errors">
+              <div *ngIf="f['confirmPassword'].errors['required']">Confirm Password is required</div>
+              <div *ngIf="f['confirmPassword'].errors['mismatch']">Passwords must match</div>
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="form-group">
+          <button
+            mat-raised-button
+            color="primary"
+            class="full-width"
+            [disabled]="registerForm.invalid"
+          >
+            Sign Up
+          </button>
+        </div>
+
+        <div *ngIf="isSignUpFailed" class="alert-container">
+          <mat-card color="warn">Signup failed!<br />{{ errorMessage }}</mat-card>
+        </div>
+        <div *ngIf="isSuccessful" class="alert-container">
+          <mat-card color="accent">Your registration is successful!</mat-card>
+        </div>
+      </form>
+    </mat-card>
+  </div>
+</div>

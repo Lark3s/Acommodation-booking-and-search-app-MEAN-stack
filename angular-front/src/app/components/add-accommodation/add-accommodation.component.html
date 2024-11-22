@@ -1,0 +1,95 @@
+<mat-card class="accommodation-card">
+  <mat-card-header>
+    <mat-card-title>Add Accommodation</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <form [formGroup]="accommodationForm" (ngSubmit)="onSubmit()" class="accommodation-form">
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Name</mat-label>
+        <input matInput id="name" formControlName="name" required />
+        <mat-error *ngIf="accommodationForm.get('name')?.invalid && accommodationForm.get('name')?.touched">
+          Name is required
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Description</mat-label>
+        <textarea matInput id="description" formControlName="description" required></textarea>
+        <mat-error *ngIf="accommodationForm.get('description')?.invalid && accommodationForm.get('description')?.touched">
+          Description is required
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Location</mat-label>
+        <input matInput id="location" formControlName="location" required />
+        <mat-error *ngIf="accommodationForm.get('location')?.invalid && accommodationForm.get('location')?.touched">
+          Location is required
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Price Per Night</mat-label>
+        <input matInput id="pricePerNight" type="number" formControlName="pricePerNight" required />
+        <mat-error *ngIf="accommodationForm.get('pricePerNight')?.invalid && accommodationForm.get('pricePerNight')?.touched">
+          Price must be a positive number
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Amenities</mat-label>
+        <input matInput id="amenities" formControlName="amenities" required />
+        <mat-error *ngIf="accommodationForm.get('amenities')?.invalid && accommodationForm.get('amenities')?.touched">
+          Amenities are required
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Latitude</mat-label>
+        <input matInput id="latitude" type="number" formControlName="latitude" required />
+        <mat-error *ngIf="accommodationForm.get('latitude')?.invalid && accommodationForm.get('latitude')?.touched">
+          Latitude is required
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Longitude</mat-label>
+        <input matInput id="longitude" type="number" formControlName="longitude" required />
+        <mat-error *ngIf="accommodationForm.get('longitude')?.invalid && accommodationForm.get('longitude')?.touched">
+          Longitude is required
+        </mat-error>
+      </mat-form-field>
+
+      <div formArrayName="availability" class="full-width">
+        <div *ngFor="let availabilityGroup of availability.controls; let i = index" [formGroupName]="i" class="availability-group">
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Start Date</mat-label>
+            <input matInput id="startDate" type="date" formControlName="startDate" required />
+          </mat-form-field>
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>End Date</mat-label>
+            <input matInput id="endDate" type="date" formControlName="endDate" required />
+          </mat-form-field>
+          <button mat-icon-button color="warn" type="button" (click)="removeAvailability(i)">
+            <mat-icon>remove_circle</mat-icon>
+          </button>
+        </div>
+      </div>
+      <button mat-button type="button" (click)="addAvailability()" class="full-width">Add Availability</button>
+
+      <!-- <div class="full-width">
+        <label for="images">Upload Images:</label>
+        <input id="images" type="file" (change)="onFileSelected($event)" multiple />
+      </div> -->
+      <div class="file-input-container">
+        <button mat-raised-button color="primary" class="full-width" type="button" (click)="fileInput.click()">Choose Images</button>
+        <input #fileInput id="images" type="file" (change)="onFileSelected($event)" multiple hidden />
+        <span class="file-names">{{ selectedFileNames }}</span>
+      </div>
+      
+    </form>
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-raised-button color="primary" type="submit" [disabled]="accommodationForm.invalid" class="full-width">Submit</button>
+  </mat-card-actions>
+</mat-card>

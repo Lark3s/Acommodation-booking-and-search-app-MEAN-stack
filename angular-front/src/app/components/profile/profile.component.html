@@ -1,0 +1,51 @@
+<div class="container" *ngIf="currentUser">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>{{ currentUser.username }}'s Profile</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <form [formGroup]="profileForm">
+        <div>
+          <label><strong>First Name:</strong></label>
+          <span *ngIf="!editMode">{{ user.firstName }}</span>
+          <mat-form-field *ngIf="editMode" appearance="fill">
+            <input matInput formControlName="firstName" placeholder="First Name"/>
+          </mat-form-field>
+        </div>
+
+        <div>
+          <label><strong>Last Name:</strong></label>
+          <span *ngIf="!editMode">{{ user.lastName }}</span>
+          <mat-form-field *ngIf="editMode" appearance="fill">
+            <input matInput formControlName="lastName" placeholder="Last Name"/>
+          </mat-form-field>
+        </div>
+
+        <div>
+          <label><strong>Username:</strong></label>
+          <span *ngIf="!editMode">{{ currentUser.username }}</span>
+          <mat-form-field *ngIf="editMode" appearance="fill">
+            <input matInput formControlName="username" placeholder="Username"/>
+          </mat-form-field>
+        </div>
+
+        <div>
+          <label><strong>Email:</strong></label>
+          <span *ngIf="!editMode">{{ currentUser.email }}</span>
+          <mat-form-field *ngIf="editMode" appearance="fill">
+            <input matInput formControlName="email" placeholder="Email" type="email"/>
+          </mat-form-field>
+        </div>
+      </form>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-raised-button color="primary" *ngIf="!editMode" (click)="toggleEditMode()">Edit</button>
+      <button mat-raised-button color="primary" *ngIf="editMode" (click)="saveChanges()">Save Changes</button>
+      <button mat-raised-button color="warn" *ngIf="editMode" (click)="toggleEditMode()">Cancel</button>
+      <button mat-raised-button color="accent" (click)="openChangePasswordDialog()">Change Password</button>
+    </mat-card-actions>
+  </mat-card>
+</div>
+<div *ngIf="!currentUser">
+  <p>Please login.</p>
+</div>

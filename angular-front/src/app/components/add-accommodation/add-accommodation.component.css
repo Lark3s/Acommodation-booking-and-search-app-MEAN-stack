@@ -1,0 +1,50 @@
+.accommodation-card {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+    max-width: 600px; /* Adjust the max-width to fit your layout */
+  }
+  
+  .accommodation-form {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+  
+  .full-width {
+    width: 100%;
+    margin-bottom: 16px; /* Adds some space between each field */
+  }
+  
+  .availability-group {
+    display: flex;
+    align-items: center;
+  }
+  
+  .availability-group mat-form-field {
+    flex: 1;
+    margin-right: 8px;
+  }
+  
+  .file-input-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 16px;
+  }
+  
+  .file-names {
+    margin-top: 8px;
+    color: rgba(0, 0, 0, 0.54); /* Adjust this to fit your theme */
+    font-size: 0.875rem;
+  }
+  
+  .full-width {
+    width: 100%;
+  }
+  
+  .hidden {
+    display: none;
+  }
+  

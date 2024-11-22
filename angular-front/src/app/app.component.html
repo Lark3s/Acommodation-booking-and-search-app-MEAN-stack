@@ -1,0 +1,42 @@
+<div id="app">
+
+  <mat-toolbar color="primary">
+    <span class="navbar-brand">Larkes</span>
+
+    <span class="spacer"></span>
+
+
+    <div>
+      <mat-form-field appearance="outline">
+        <input matInput placeholder="Search by title" 
+               [matAutocomplete]="auto" 
+               [(ngModel)]="searchTerm"
+               (ngModelChange)="onSearchChange($event)">
+        <mat-autocomplete #auto="matAutocomplete" (optionSelected)="navigateToAccommodation($event.option.value)">
+          <mat-option *ngFor="let option of filteredOptions" [value]="option.name">
+            {{ option.name }}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+    </div>
+
+    <span class="spacer"></span>
+
+    <!-- Navbar Links -->
+    <button mat-button [routerLink]="'/home'">Home</button>
+    <button mat-button [routerLink]="'/accommodations'">Accommodations</button>
+    <button mat-button *ngIf="showAdminBoard" [routerLink]="'/admin'">Admin Board</button>
+   
+    <button mat-button *ngIf="isLoggedIn" [routerLink]="'/user'">User Board</button>
+    
+    <!-- Authentication Links -->
+    <button mat-button *ngIf="!isLoggedIn" [routerLink]="'/register'">Sign Up</button>
+    <button mat-button *ngIf="!isLoggedIn" [routerLink]="'/login'">Login</button>
+    <button mat-button *ngIf="isLoggedIn" [routerLink]="'/profile'">{{ username }}</button>
+    <button mat-button *ngIf="isLoggedIn" (click)="logout()">Logout</button>
+  </mat-toolbar>
+
+  <div class="container">
+    <router-outlet></router-outlet>
+  </div>
+</div>

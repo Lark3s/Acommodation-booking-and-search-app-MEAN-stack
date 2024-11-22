@@ -1,0 +1,48 @@
+html, body, app-home {
+    height: 100%;
+    margin: 0;
+    
+}
+.container {
+    margin: auto;
+    padding: auto;
+    /* background-image: url('https://images.pexels.com/photos/60217/pexels-photo-60217.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1');
+    background-size: cover;
+    background-position: center; */
+    height: 80vh;
+    width: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* .home-component { */
+    /* background-image: url('https://images.pexels.com/photos/60217/pexels-photo-60217.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'); */
+    /* background-size: cover;
+    background-position: center;
+    height: 100vh;
+    width: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  } */
+  
+  .jumbotron {
+    background-color: rgba(0, 0, 0, 0.4); /* Dark overlay for text visibility */
+    padding: 2rem;
+    text-align: center;
+    color: white;
+    border-radius: 20px;
+  }
+  
+  .welcome-text {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+  }
+  
+  .lorem-text {
+    font-size: 1.2rem;
+    margin: 0;
+  }
+  
+    

@@ -1,0 +1,128 @@
+<mat-tab-group>
+  <mat-tab label="My Bookings">
+    <div>
+      <mat-tab-group>
+          <mat-tab label="Upcoming bookings">
+              <h3>Upcoming Bookings</h3>
+              <div *ngIf="upcomingBookings.length > 0; else noUpcomingBookings">
+              <div *ngFor="let booking of upcomingBookings">
+                  <p><strong>Accommodation:</strong> {{ booking.accommodation.name }}</p>
+                  <p><strong>Dates:</strong> {{ booking.checkInDate | date:'mediumDate' }} - {{ booking.checkOutDate | date:'mediumDate' }}</p>
+                  <button class="btn btn-danger" (click)="cancelBooking(booking.id)">Cancel Booking</button>
+              </div>
+              </div>
+              <ng-template #noUpcomingBookings>
+              <p>No upcoming bookings.</p>
+              </ng-template>
+          </mat-tab>
+          <mat-tab label="Ongoing bookings">
+              <h3>Ongoing Bookings</h3>
+              <div *ngIf="ongoingBookings.length > 0; else noOngoingBookings">
+              <div *ngFor="let booking of ongoingBookings">
+                  <p><strong>Accommodation:</strong> {{ booking.accommodation.name }}</p>
+                  <p><strong>Dates:</strong> {{ booking.checkInDate | date:'mediumDate' }} - {{ booking.checkOutDate | date:'mediumDate' }}</p>
+                  <!-- No action buttons for ongoing bookings -->
+              </div>
+              </div>
+      <ng-template #noOngoingBookings>
+        <p>No ongoing bookings.</p>
+      </ng-template>
+          </mat-tab>
+          <mat-tab label="Past bookings">
+              <h3>Past Bookings</h3>
+              <div *ngIf="pastBookings.length > 0; else noPastBookings">
+              <div *ngFor="let booking of pastBookings">
+                  <p><strong>Accommodation:</strong> {{ booking.accommodation.name }}</p>
+                  <p><strong>Dates:</strong> {{ booking.checkInDate | date:'mediumDate' }} - {{ booking.checkOutDate | date:'mediumDate' }}</p>
+                  
+                  <button *ngIf="!booking.reviewLeft" class="btn btn-primary" (click)="leaveReview(booking.id)">
+                  Leave a Review
+                  </button>
+                  <button *ngIf="booking.reviewLeft" class="btn btn-secondary" disabled>
+                  Reviewed
+                  </button>
+                  <mat-divider></mat-divider>
+              </div>
+              </div>
+              <ng-template #noPastBookings>
+              <p>No past bookings.</p>
+              </ng-template>
+          </mat-tab>
+          <mat-tab label="Cancelled bookings">
+              <h3>Cancelled Bookings</h3>
+              <div *ngIf="cancelledBookings.length > 0; else noCancelledBookings">
+              <div *ngFor="let booking of cancelledBookings">
+                  <p><strong>Accommodation:</strong> {{ booking.accommodation.name }}</p>
+                  <p><strong>Dates:</strong> {{ booking.checkInDate | date:'mediumDate' }} - {{ booking.checkOutDate | date:'mediumDate' }}</p>
+                  <p><strong>Status:</strong> Cancelled</p>
+              </div>
+              </div>
+              <ng-template #noCancelledBookings>
+              <p>No cancelled bookings.</p>
+              </ng-template>
+          </mat-tab>
+      </mat-tab-group>
+    </div>
+  </mat-tab>
+  <mat-tab label="My Accommodations">
+    <div *ngIf="userAccommodations.length > 0; else noAccommodations">
+      <div *ngFor="let accommodation of userAccommodations">
+        <h1>{{ accommodation.name }}</h1>
+        <p><strong>Location:</strong> {{ accommodation.location }}</p>
+        <p><strong>Price:</strong> {{ accommodation.pricePerNight | currency }}</p>
+        <p><strong>Description:</strong> {{ accommodation.description }}</p>
+        <p><strong>Average Rating:</strong> {{ accommodation.averageRating }}⭐ ({{ accommodation.reviewCount }})</p>
+
+        <!-- Image Gallery -->
+        <div *ngIf="accommodation.images && accommodation.images.length > 0">
+          <h3>Photos</h3>
+          <div class="carousel-container">
+            <button class="carousel-button prev" (click)="prevImage(accommodation)">❮</button>
+            <div class="carousel-images">
+              <img *ngIf="accommodation.images" 
+           [src]="accommodation.images[accommodation.currentImageIndex]" 
+           alt="Accommodation Image" 
+           class="img-fluid" />
+            </div>
+            <button class="carousel-button next" (click)="nextImage(accommodation)">❯</button>
+          </div>
+        </div>
+
+        <h3>Availability</h3>
+        <ul>
+          <li *ngFor="let availability of accommodation.availability">
+            <strong>From:</strong> {{ availability.startDate | date:'mediumDate' }} 
+            <strong>To:</strong> {{ availability.endDate | date:'mediumDate' }}
+          </li>
+        </ul>
+
+        <button class="btn btn-primary" (click)="editAccommodation(accommodation)">
+          Edit Accommdoation
+        </button>
+  
+        <h4>Bookings for this accommodation:</h4>
+        <div *ngIf="accommodation.bookings.length > 0; else noBookings">
+          <div *ngFor="let booking of accommodation.bookings">
+            <p><strong>User:</strong> {{ booking.user.username }}</p>
+            <p><strong>Check-in Date:</strong> {{ booking.checkInDate | date:'mediumDate' }}</p>
+            <p><strong>Check-out Date:</strong> {{ booking.checkOutDate | date:'mediumDate' }}</p>
+  
+            <button *ngIf="!booking.cancelled" class="btn btn-danger" (click)="cancelOwnerBooking(booking.id)">
+              Cancel Booking
+            </button>
+          </div>
+        </div>
+        <ng-template #noBookings>
+          <p>No bookings for this accommodation.</p>
+        </ng-template>
+        <mat-divider></mat-divider>
+      </div>
+    </div>
+    <ng-template #noAccommodations>
+      <p>You have not listed any accommodations.</p>
+    </ng-template>
+    
+  </mat-tab>
+
+</mat-tab-group>
+

@@ -1,0 +1,75 @@
+<div *ngIf="accommodation">
+  <h1>{{ accommodation.name }}</h1>
+  <mat-card>
+    <mat-card-content>
+      <p><strong>Location:</strong> {{ accommodation.location }}</p>
+      <p><strong>Price:</strong> {{ accommodation.pricePerNight | currency }}</p>
+      <p><strong>Description:</strong> {{ accommodation.description }}</p>
+      <p><strong>Average Rating:</strong> {{ accommodation.averageRating }}⭐ ({{ accommodation.reviewCount }})</p>
+      
+      <!-- Image Gallery -->
+      <div *ngIf="accommodation.images && accommodation.images.length > 0">
+        <h3>Photos</h3>
+        <div class="carousel-container">
+          <button class="carousel-button prev" (click)="prevImage()">❮</button>
+          <div class="carousel-images">
+            <img [src]="accommodation.images[currentImageIndex]" alt="Accommodation Image" class="img-fluid" />
+          </div>
+          <button class="carousel-button next" (click)="nextImage()">❯</button>
+        </div>
+      </div>
+
+      <h3>Availability</h3>
+      <ul>
+        <li *ngFor="let availability of accommodation.availability">
+          <strong>From:</strong> {{ availability.startDate | date:'mediumDate' }} 
+          <strong>To:</strong> {{ availability.endDate | date:'mediumDate' }}
+        </li>
+      </ul>
+
+      <!-- Booking Buttons -->
+      <button *ngIf="isLoggedIn && !isOwner" (click)="bookAccommodation()" class="btn btn-primary">
+        Book Now
+      </button>
+
+      <button *ngIf="isLoggedIn && isOwner" class="btn btn-secondary" [disabled]="true">
+        You cannot book your own accommodation
+      </button>
+
+      <button *ngIf="!isLoggedIn" (click)="redirectToLogin()" class="btn btn-secondary" [disabled]="true">
+        Log in to Book
+      </button>
+    </mat-card-content>
+  </mat-card>
+  
+  <!-- Reviews Section -->
+  <div *ngIf="reviews.length > 0">
+    <h3>Reviews</h3>
+    <mat-card *ngFor="let review of reviews">
+      <mat-card-header>
+        <mat-card-title *ngIf="review.user">{{ review.user.username }}</mat-card-title>
+        <mat-card-subtitle>{{ review.rating }}⭐ - {{ review.createdAt | date:'mediumDate' }}</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <p>{{ review.comment }}</p>
+      </mat-card-content>
+    </mat-card>
+
+    <!-- Angular Material Paginator -->
+    <mat-paginator [length]="totalItems" [pageSize]="5"  >
+    </mat-paginator>
+  </div>
+  <div *ngIf="reviews.length === 0">
+    <p>No reviews available for this accommodation.</p>
+  </div>
+
+</div>
+
+<div *ngIf="!accommodation">
+  <p>Loading...</p>
+</div>
+
+<div id="map" style="height: 400px; width: 400px; margin-top: 20px;"></div>
+  
+
+  

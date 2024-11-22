@@ -1,0 +1,62 @@
+<div>
+    <mat-tab-group>
+        <mat-tab label="Upcoming bookings">
+            <h3>Upcoming Bookings</h3>
+            <div *ngIf="upcomingBookings.length > 0; else noUpcomingBookings">
+            <div *ngFor="let booking of upcomingBookings">
+                <p><strong>Accommodation:</strong> {{ booking.accommodation.name }}</p>
+                <p><strong>Dates:</strong> {{ booking.checkInDate | date:'mediumDate' }} - {{ booking.checkOutDate | date:'mediumDate' }}</p>
+                <button class="btn btn-danger" (click)="cancelBooking(booking.id)">Cancel Booking</button>
+            </div>
+            </div>
+            <ng-template #noUpcomingBookings>
+            <p>No upcoming bookings.</p>
+            </ng-template>
+        </mat-tab>
+        <mat-tab label="Ongoing bookings">
+            <h3>Ongoing Bookings</h3>
+            <div *ngIf="ongoingBookings.length > 0; else noOngoingBookings">
+            <div *ngFor="let booking of ongoingBookings">
+                <p><strong>Accommodation:</strong> {{ booking.accommodation.name }}</p>
+                <p><strong>Dates:</strong> {{ booking.checkInDate | date:'mediumDate' }} - {{ booking.checkOutDate | date:'mediumDate' }}</p>
+            </div>
+            </div>
+    <ng-template #noOngoingBookings>
+      <p>No ongoing bookings.</p>
+    </ng-template>
+        </mat-tab>
+        <mat-tab label="Past bookings">
+            <h3>Past Bookings</h3>
+            <div *ngIf="pastBookings.length > 0; else noPastBookings">
+            <div *ngFor="let booking of pastBookings">
+                <p><strong>Accommodation:</strong> {{ booking.accommodation.name }}</p>
+                <p><strong>Dates:</strong> {{ booking.checkInDate | date:'mediumDate' }} - {{ booking.checkOutDate | date:'mediumDate' }}</p>
+                
+                <button *ngIf="!booking.reviewLeft" class="btn btn-primary" (click)="leaveReview(booking.id)">
+                Leave a Review
+                </button>
+                <button *ngIf="booking.reviewLeft" class="btn btn-secondary" disabled>
+                Reviewed
+                </button>
+            </div>
+            </div>
+            <ng-template #noPastBookings>
+            <p>No past bookings.</p>
+            </ng-template>
+        </mat-tab>
+        <mat-tab label="Cancelled bookings">
+            <h3>Cancelled Bookings</h3>
+            <div *ngIf="cancelledBookings.length > 0; else noCancelledBookings">
+            <div *ngFor="let booking of cancelledBookings">
+                <p><strong>Accommodation:</strong> {{ booking.accommodation.name }}</p>
+                <p><strong>Dates:</strong> {{ booking.checkInDate | date:'mediumDate' }} - {{ booking.checkOutDate | date:'mediumDate' }}</p>
+                <p><strong>Status:</strong> Cancelled</p>
+            </div>
+            </div>
+            <ng-template #noCancelledBookings>
+            <p>No cancelled bookings.</p>
+            </ng-template>
+        </mat-tab>
+    </mat-tab-group>
+  </div>
+  

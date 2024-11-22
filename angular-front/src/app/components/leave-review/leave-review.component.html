@@ -1,0 +1,25 @@
+<h2 mat-dialog-title>Leave a Review</h2>
+<form [formGroup]="reviewForm!" (ngSubmit)="onSubmit()">
+  <div>
+    <label>Rating ⭐</label>
+    <div class="rating-options">
+      <mat-radio-group formControlName="rating">
+        <mat-radio-button *ngFor="let rating of [1, 2, 3, 4, 5]" [value]="rating">
+          {{ rating }}
+        </mat-radio-button>
+      </mat-radio-group>
+    </div>
+    <mat-error *ngIf="reviewForm!.get('rating')!.hasError('required')">Rating is required</mat-error>
+  </div>
+  
+  <mat-form-field>
+    <mat-label>Comment</mat-label>
+    <textarea matInput formControlName="comment"></textarea>
+    <mat-error *ngIf="reviewForm!.get('comment')!.hasError('required')">Comment is required</mat-error>
+  </mat-form-field>
+
+  <div mat-dialog-actions>
+    <button mat-button (click)="onCancel()">Cancel</button>
+    <button mat-button type="submit" [disabled]="reviewForm!.invalid">Submit</button>
+  </div>
+</form>

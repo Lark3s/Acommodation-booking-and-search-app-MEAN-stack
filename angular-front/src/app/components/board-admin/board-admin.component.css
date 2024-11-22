@@ -1,0 +1,25 @@
+@media (max-width: 600px) {
+    .wrap {
+        word-wrap: break-word;   /* Break long words and wrap them onto the next line */
+        white-space: normal;     /* Ensure the text wraps */
+        max-width: 50px;         /* Set a max-width to control the wrapping point, adjust as needed */
+        overflow-wrap: anywhere; /* Break long words at arbitrary points if necessary */
+    }
+  }
+  
+  @media (min-width: 601px) {
+    .wrap {
+        word-wrap: break-word;   
+        white-space: normal;     
+        max-width: 150px;        
+        overflow-wrap: anywhere; 
+    }
+  }
+/* .wrap-id { */
+    /* word-wrap: break-word;   */
+    /* white-space: normal;     */
+    /* max-width: 100px;        */
+    /* overflow-wrap: anywhere; */
+  /* } */
+/*    */
+  

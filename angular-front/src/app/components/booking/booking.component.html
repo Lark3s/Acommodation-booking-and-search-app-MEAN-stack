@@ -1,0 +1,21 @@
+<div *ngIf="accommodation">
+  <h2>Booking for {{ accommodation.name }}</h2>
+
+  <form (ngSubmit)="confirmBooking()">
+    <div>
+      <label for="startDate">Start Date:</label>
+      <input type="date" id="startDate" [(ngModel)]="startDate" name="startDate" (ngModelChange)="onDateChange()" required>
+    </div>
+
+    <div>
+      <label for="endDate">End Date:</label>
+      <input type="date" id="endDate" [(ngModel)]="endDate" name="endDate" (ngModelChange)="onDateChange()" required>
+    </div>
+
+    <div *ngIf="totalPrice !== undefined">
+      <p>Total Price: {{ totalPrice | currency }}</p>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Confirm Booking</button>
+  </form>
+</div>

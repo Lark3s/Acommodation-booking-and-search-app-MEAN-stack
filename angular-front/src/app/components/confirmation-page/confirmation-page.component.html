@@ -1,0 +1,16 @@
+<div *ngIf="booking">
+    <h2>Booking Confirmation</h2>
+    <p><strong>Accommodation:</strong> {{ booking.accommodation.name }}</p>
+    <p><strong>Location:</strong> {{ booking.accommodation.location }}</p>
+    <p><strong>Price per Night:</strong> {{ booking.accommodation.pricePerNight | currency }}</p>
+    <p><strong>Start Date:</strong> {{ booking.checkInDate | date:'mediumDate' }}</p>
+    <p><strong>End Date:</strong> {{ booking.checkOutDate | date:'mediumDate' }}</p>
+    <p><strong>Total Cost:</strong> {{ booking.totalPrice | currency }}</p>
+    
+    <button class="btn btn-primary" (click)="goToHome()">Go to Home</button>
+  </div>
+  
+  <div *ngIf="!booking">
+    <p>Loading booking details...</p>
+  </div>
+  

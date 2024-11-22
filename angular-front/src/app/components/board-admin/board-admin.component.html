@@ -1,0 +1,66 @@
+<div class="container">
+  <header class="jumbotron">
+    <h1>Admin Panel</h1>
+  </header>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Select Table</mat-label>
+    <mat-select [(value)]="selectedTable" (selectionChange)="onTableChange($event.value)">
+      <mat-option *ngFor="let table of tables" [value]="table.value">{{ table.viewValue }}</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <!-- <mat-form-field appearance="fill" style="width: 100%;">
+    <mat-label>Search</mat-label>
+    <input matInput (keyup)="applyFilter($event)" placeholder="Search">
+  </mat-form-field> -->
+
+  <div *ngIf="dataSource">
+    <table mat-table [dataSource]="dataSource" matSort (matSortChange)="onSortChange()" class="mat-elevation-z8">
+
+      <!-- ID Column -->
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>ID</th>
+        <td mat-cell *matCellDef="let element" class="wrap">{{element._id || element.id}}</td>
+      </ng-container>
+
+      <!-- Created At Column -->
+      <ng-container matColumnDef="createdAt">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Created At</th>
+        <td mat-cell *matCellDef="let element" class="wrap">{{element.createdAt | date:'short'}}</td>
+      </ng-container>
+
+      <!-- Updated At Column -->
+      <ng-container matColumnDef="updatedAt">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Updated At</th>
+        <td mat-cell *matCellDef="let element" class="wrap">{{element.updatedAt | date:'short'}}</td>
+      </ng-container>
+
+      <!-- Dynamic Columns -->
+      <ng-container *ngFor="let column of displayedColumns" [matColumnDef]="column">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ formatColumnHeader(column) }}</th>
+        <td mat-cell *matCellDef="let element" class="wrap">{{element[column]}}</td>
+      </ng-container>
+
+      <!-- Actions Column -->
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef>Actions</th>
+        <td mat-cell *matCellDef="let element">
+          <button mat-button color="primary" (click)="edit(element)">Edit</button>
+          <button mat-button color="warn" (click)="delete(element)">Delete</button>
+        </td>
+      </ng-container>
+
+      <!-- Header and Row Definitions -->
+      <tr mat-header-row *matHeaderRowDef="allDisplayedColumns.concat(['actions'])"></tr>
+      <tr mat-row *matRowDef="let row; columns: allDisplayedColumns.concat(['actions']);"></tr>
+    </table>
+
+    <mat-paginator [length]="totalItems"
+                 [pageSize]="pageSize"
+                 [pageSizeOptions]="[5, 25, 50, 100, 250, 500]"
+                 showFirstLastButtons
+                 (page)="goToPage($event)">
+  </mat-paginator>
+  </div>
+</div>

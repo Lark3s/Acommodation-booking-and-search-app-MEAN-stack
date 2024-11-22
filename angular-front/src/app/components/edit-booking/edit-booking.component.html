@@ -1,0 +1,51 @@
+<mat-card>
+    <mat-card-header>
+      <mat-card-title>Edit Booking</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <form [formGroup]="editForm" (ngSubmit)="onSubmit()">
+        <mat-form-field appearance="fill">
+          <mat-label>User ID</mat-label>
+          <input matInput formControlName="user" required>
+        </mat-form-field>
+  
+        <mat-form-field appearance="fill">
+          <mat-label>Accommodation ID</mat-label>
+          <input matInput formControlName="accommodation" required>
+        </mat-form-field>
+  
+        <mat-form-field appearance="fill">
+          <mat-label>Total Price</mat-label>
+          <input matInput type="number" formControlName="totalPrice" required>
+        </mat-form-field>
+  
+        <mat-form-field appearance="fill">
+          <mat-label>Check-In Date</mat-label>
+          <input matInput [matDatepicker]="picker1" formControlName="checkInDate" required>
+          <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+          <mat-datepicker #picker1></mat-datepicker>
+        </mat-form-field>
+  
+        <mat-form-field appearance="fill">
+          <mat-label>Check-Out Date</mat-label>
+          <input matInput [matDatepicker]="picker2" formControlName="checkOutDate" required>
+          <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+          <mat-datepicker #picker2></mat-datepicker>
+        </mat-form-field>
+  
+        <mat-form-field appearance="fill">
+          <mat-label>Cancelled Status</mat-label>
+          <mat-select formControlName="cancelled">
+            <mat-option [value]="0">Active</mat-option>
+            <mat-option [value]="1">Cancelled by user</mat-option>
+            <mat-option [value]="2">Cancelled by owner</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </form>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-button (click)="onCancel()">Cancel</button>
+      <button mat-button color="primary" (click)="onSubmit()">Save</button>
+    </mat-card-actions>
+  </mat-card>
+  
